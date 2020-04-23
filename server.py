@@ -13,7 +13,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
             return {**payload['payload'], **sorted_values}
         except KeyError:
-            return "Badly specified keys"
+            return 400
 
     def do_GET(self):
         if self.path != '/path':
@@ -31,6 +31,9 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         body = self.rfile.read(content_length)
         body_object = json.loads(body)
         answer = self.sort_arrays(body_object)
+        if answer == 400:
+            self.send_response(answer)
+            answer = 'Badly specified keys'
         self.send_response(200)
         self.end_headers()
         answer_json = json.dumps(answer)
