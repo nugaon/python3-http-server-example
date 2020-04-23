@@ -21,9 +21,11 @@ curl \
 
 # Run
 
+## Build
+
 Build can be made by 'pyinstaller'. Binary files will be in the dist directory
 
-# Docker
+## Docker
 
 To try out it in docker, run:
 
